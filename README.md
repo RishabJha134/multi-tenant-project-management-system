@@ -173,7 +173,7 @@ Frontend will run on `http://localhost:3000`
 ## 📁 Project Structure
 
 ```
-CloudFlexTechnology/
+Multi-Tenant Technology/
 ├── backend/
 │   ├── src/
 │   │   ├── auth/          # Authentication module

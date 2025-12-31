@@ -6,8 +6,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Project Management Portal",
-  description: "Manage your projects and team efficiently",
+  title: "Multi-Tenant Project Management",
+  description: "Professional SaaS platform for developers to manage projects, teams, and collaborate efficiently",
 };
 
 export default function RootLayout({
