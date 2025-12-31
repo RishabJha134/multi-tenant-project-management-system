@@ -24,7 +24,11 @@ export class ProjectsService {
   ) {}
 
   // Create a new project
-  async create(createProjectDto: CreateProjectDto, userId: string, clientId: string) {
+  async create(
+    createProjectDto: CreateProjectDto,
+    userId: string,
+    clientId: string,
+  ) {
     const { name, description } = createProjectDto;
 
     const project = this.projectRepository.create({
@@ -52,13 +56,17 @@ export class ProjectsService {
 
   // Get all projects for user's client
   async findAll(clientId: string, userId: string) {
-    const projects = await this.projectRepository
-      .createQueryBuilder('project')
-      .leftJoinAndSelect('project.projectUsers', 'projectUser')
-      .leftJoinAndSelect('projectUser.user', 'user')
-      .where('project.clientId = :clientId', { clientId })
-      .orderBy('project.createdAt', 'DESC')
-      .getMany();
+    const projects = await this.projectRepository.find({
+      where: { clientId },
+      relations: {
+        projectUsers: {
+          user: true,
+        },
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
 
     // Filter to include only projects where the user is assigned
     const userProjects = projects.filter((project) =>
@@ -106,7 +114,9 @@ export class ProjectsService {
     const isAdmin = role === 'admin';
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException('Only project owners or admins can update projects');
+      throw new ForbiddenException(
+        'Only project owners or admins can update projects',
+      );
     }
 
     Object.assign(project, updateProjectDto);
@@ -128,7 +138,9 @@ export class ProjectsService {
     const isAdmin = role === 'admin';
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException('Only project owners or admins can delete projects');
+      throw new ForbiddenException(
+        'Only project owners or admins can delete projects',
+      );
     }
 
     // IMPORTANT: Delete all project_users assignments first
@@ -154,15 +166,24 @@ export class ProjectsService {
     const { userId, role: userRole } = assignUserDto;
 
     // Check if project exists
-    const project = await this.findOne(projectId, requestUserId, clientId, role);
+    const project = await this.findOne(
+      projectId,
+      requestUserId,
+      clientId,
+      role,
+    );
 
     // Check if requesting user is owner or admin
-    const projectUser = project.projectUsers.find((pu) => pu.userId === requestUserId);
+    const projectUser = project.projectUsers.find(
+      (pu) => pu.userId === requestUserId,
+    );
     const isOwner = projectUser?.role === 'owner';
     const isAdmin = role === 'admin';
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException('Only project owners or admins can assign users');
+      throw new ForbiddenException(
+        'Only project owners or admins can assign users',
+      );
     }
 
     // Check if user exists and belongs to same client
@@ -171,7 +192,9 @@ export class ProjectsService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found or does not belong to this client');
+      throw new NotFoundException(
+        'User not found or does not belong to this client',
+      );
     }
 
     // Check if user is already assigned
@@ -207,7 +230,12 @@ export class ProjectsService {
     clientId: string,
     role: string,
   ) {
-    const project = await this.findOne(projectId, requestUserId, clientId, role);
+    const project = await this.findOne(
+      projectId,
+      requestUserId,
+      clientId,
+      role,
+    );
 
     // Check if requesting user is owner or admin
     const requestUserProjectUser = project.projectUsers.find(
@@ -217,7 +245,9 @@ export class ProjectsService {
     const isAdmin = role === 'admin';
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException('Only project owners or admins can update user roles');
+      throw new ForbiddenException(
+        'Only project owners or admins can update user roles',
+      );
     }
 
     // Find the project user assignment
@@ -246,7 +276,12 @@ export class ProjectsService {
     clientId: string,
     role: string,
   ) {
-    const project = await this.findOne(projectId, requestUserId, clientId, role);
+    const project = await this.findOne(
+      projectId,
+      requestUserId,
+      clientId,
+      role,
+    );
 
     // Check if requesting user is owner or admin
     const requestUserProjectUser = project.projectUsers.find(
@@ -256,7 +291,9 @@ export class ProjectsService {
     const isAdmin = role === 'admin';
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException('Only project owners or admins can remove users');
+      throw new ForbiddenException(
+        'Only project owners or admins can remove users',
+      );
     }
 
     // Find the project user assignment
@@ -282,7 +319,12 @@ export class ProjectsService {
     clientId: string,
     role: string,
   ) {
-    const project = await this.findOne(projectId, requestUserId, clientId, role);
+    const project = await this.findOne(
+      projectId,
+      requestUserId,
+      clientId,
+      role,
+    );
 
     return project.projectUsers.map((pu) => ({
       id: pu.id,
