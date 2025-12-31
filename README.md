@@ -243,9 +243,7 @@ CloudFlexTechnology/
 ## 📧 Contact
 
 For any queries regarding this project:
-- Email: consult@cloudflex.co.in
-- Repository: https://github.com/RishabJha134/Cloud-Assignment-User-Management-Portal_RBAC
-
+- Email: rishabjha134@gmail.com
+- Repository: https://github.com/RishabJha134/multi-tenant-project-management-system
 ---
 
-**Developed for Cloud Flex Technology Internship Round 2**
