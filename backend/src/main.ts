@@ -7,8 +7,13 @@ async function bootstrap() {
   
   // Enable CORS (allows frontend to connect)
   app.enableCors({
-    origin: 'http://localhost:3000', // Frontend URL
+    origin: [
+      'http://localhost:3000', // Local development
+      'https://cloud-assignment-user-management-po.vercel.app' // Production frontend
+    ],
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
   
   // Enable validation for all endpoints
