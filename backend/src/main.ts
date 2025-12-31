@@ -9,7 +9,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000', // Local development
-      'https://cloud-assignment-user-management-po.vercel.app' // Production frontend
+      'https://multi-tenant-project-management-system.vercel.app' // Production frontend
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
