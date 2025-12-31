@@ -59,9 +59,9 @@ export default function ProjectDetailsPage() {
 
       // Fetch all users in the company for assignment
       const usersResponse = await api.get<User[]>('/auth/me');
-      const currentUserData = usersResponse.data;
+      const currentUserData:User[] = usersResponse.data;
       // This is a workaround - ideally we'd have an endpoint to get all users in a client
-      setAllUsers([currentUserData]);
+      setAllUsers(currentUserData);
     } catch (err) {
       console.error('Failed to fetch project users:', err);
     }
