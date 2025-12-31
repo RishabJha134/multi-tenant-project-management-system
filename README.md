@@ -1,6 +1,6 @@
-# Cloud Flex Technology - User Management Portal with RBAC
+# Multi-Tenant Project Management System
 
-A full-stack web application for managing users, clients, and projects with Role-Based Access Control (RBAC). Built with Next.js, NestJS, and PostgreSQL.
+A SaaS-style platform for managing projects and team roles across multiple organizations — built using Next.js, NestJS, TypeORM, PostgreSQL, and JWT authentication.
 
 ## 🚀 Features
 
@@ -243,9 +243,7 @@ CloudFlexTechnology/
 ## 📧 Contact
 
 For any queries regarding this project:
-- Email: consult@cloudflex.co.in
-- Repository: https://github.com/RishabJha134/Cloud-Assignment-User-Management-Portal_RBAC
-
+- Email: rishabjha134@gmail.com
+- Repository: https://github.com/RishabJha134/multi-tenant-project-management-system
 ---
 
-**Developed for Cloud Flex Technology Internship Round 2**
